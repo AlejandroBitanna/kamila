@@ -33,9 +33,9 @@ import { AppStateContext } from "../../state/AppProvider";
 import { useBoolean } from "@fluentui/react-hooks";
 
 const enum messageStatus {
-    NotRunning = "Not Running",
-    Processing = "Processing",
-    Done = "Done"
+    NotRunning = "En pausa",
+    Processing = "Procesando",
+    Done = "Finalizando"
 }
 
 const Chat = () => {
@@ -56,7 +56,7 @@ const Chat = () => {
     const errorDialogContentProps = {
         type: DialogType.close,
         title: errorMsg?.title,
-        closeButtonAriaLabel: 'Close',
+        closeButtonAriaLabel: 'Cerrar',
         subText: errorMsg?.subtitle,
     };
 
@@ -69,9 +69,9 @@ const Chat = () => {
 
     useEffect(() => {
         if(appStateContext?.state.isCosmosDBAvailable?.status === CosmosDBStatus.NotWorking && appStateContext.state.chatHistoryLoadingState === ChatHistoryLoadingState.Fail && hideErrorDialog){
-            let subtitle = `${appStateContext.state.isCosmosDBAvailable.status}. Please contact the site administrator.`
+            let subtitle = `${appStateContext.state.isCosmosDBAvailable.status}. Por favor contacte a soporte.`
             setErrorMsg({
-                title: "Chat history is not enabled",
+                title: "El historial del chat no está habilitado",
                 subtitle: subtitle
             })
             toggleErrorDialog();
@@ -119,7 +119,7 @@ const Chat = () => {
         }else{
             conversation = appStateContext?.state?.currentChat
             if(!conversation){
-                console.error("Conversation not found.");
+                console.error("La conversación no fue encontrada.");
                 setIsLoading(false);
                 setShowLoadingMessage(false);
                 abortFuncs.current = abortFuncs.current.filter(a => a !== abortController);
@@ -173,7 +173,7 @@ const Chat = () => {
             
         } catch ( e )  {
             if (!abortController.signal.aborted) {
-                let errorMessage = "An error occurred. Please try again. If the problem persists, please contact the site administrator.";
+                let errorMessage = "Ocurrió un error, por favor intente nuevamente. Si el problema persiste, contacte a soporte.";
                 if (result.error?.message) {
                     errorMessage = result.error.message;
                 }
@@ -245,14 +245,14 @@ const Chat = () => {
                 let errorChatMsg: ChatMessage = {
                     id: uuid(),
                     role: "error",
-                    content: "There was an error generating a response. Chat history can't be saved at this time. If the problem persists, please contact the site administrator.",
+                    content: "Ocurrió un error, el chat no pudo ser guardado. Si el problema continúa, contacte a soporte.",
                     date: new Date().toISOString()
                 }
                 let resultConversation;
                 if(conversationId){
                     resultConversation = appStateContext?.state?.chatHistory?.find((conv) => conv.id === conversationId)
                     if(!resultConversation){
-                        console.error("Conversation not found.");
+                        console.error("Conversación no encontrada.");
                         setIsLoading(false);
                         setShowLoadingMessage(false);
                         abortFuncs.current = abortFuncs.current.filter(a => a !== abortController);
@@ -305,7 +305,7 @@ const Chat = () => {
                 if(conversationId){
                     resultConversation = appStateContext?.state?.chatHistory?.find((conv) => conv.id === conversationId)
                     if(!resultConversation){
-                        console.error("Conversation not found.");
+                        console.error("Conversación no encontrada.");
                         setIsLoading(false);
                         setShowLoadingMessage(false);
                         abortFuncs.current = abortFuncs.current.filter(a => a !== abortController);
@@ -333,7 +333,7 @@ const Chat = () => {
             
         } catch ( e )  {
             if (!abortController.signal.aborted) {
-                let errorMessage = "An error occurred. Please try again. If the problem persists, please contact the site administrator.";
+                let errorMessage = "Ocurrió un error. Si el problema continúa, contacte a soporte.";
                 if (result.error?.message) {
                     errorMessage = result.error.message;
                 }
@@ -350,7 +350,7 @@ const Chat = () => {
                 if(conversationId){
                     resultConversation = appStateContext?.state?.chatHistory?.find((conv) => conv.id === conversationId)
                     if(!resultConversation){
-                        console.error("Conversation not found.");
+                        console.error("Conversación no encontrada.");
                         setIsLoading(false);
                         setShowLoadingMessage(false);
                         abortFuncs.current = abortFuncs.current.filter(a => a !== abortController);
@@ -359,7 +359,7 @@ const Chat = () => {
                     resultConversation.messages.push(errorChatMsg);
                 }else{
                     if(!result.history_metadata){
-                        console.error("Error retrieving data.", result);
+                        console.error("Error obteniendo la información.", result);
                         setIsLoading(false);
                         setShowLoadingMessage(false);
                         abortFuncs.current = abortFuncs.current.filter(a => a !== abortController);
@@ -400,8 +400,8 @@ const Chat = () => {
             let response = await historyClear(appStateContext?.state.currentChat.id)
             if(!response.ok){
                 setErrorMsg({
-                    title: "Error clearing current chat",
-                    subtitle: "Please try again. If the problem persists, please contact the site administrator.",
+                    title: "Error limpiando el chat",
+                    subtitle: "Ocurrió un error. Si el problema continúa, contacte a soporte.",
                 })
                 toggleErrorDialog();
             }else{
@@ -454,7 +454,7 @@ const Chat = () => {
                     saveToDB(appStateContext.state.currentChat.messages, appStateContext.state.currentChat.id)
                     .then((res) => {
                         if(!res.ok){
-                            let errorMessage = "An error occurred. Answers can't be saved at this time. If the problem persists, please contact the site administrator.";
+                            let errorMessage = "Ocurrió un error. Si el problema continúa, contacte a soporte.";
                             let errorChatMsg: ChatMessage = {
                                 id: uuid(),
                                 role: "error",
@@ -464,7 +464,7 @@ const Chat = () => {
                             if(!appStateContext?.state.currentChat?.messages){
                                 let err: Error = {
                                     ...new Error,
-                                    message: "Failure fetching current chat state."
+                                    message: "Error obteniendo el estado."
                                 }
                                 throw err
                             }
@@ -579,7 +579,7 @@ const Chat = () => {
                                         <div className={styles.chatMessageGpt}>
                                             <Answer
                                                 answer={{
-                                                    answer: "Generating answer...",
+                                                    answer: "Generando una respuesta...",
                                                     citations: []
                                                 }}
                                                 onCitationClicked={() => null}
@@ -597,7 +597,7 @@ const Chat = () => {
                                     horizontal
                                     className={styles.stopGeneratingContainer}
                                     role="button"
-                                    aria-label="Stop generating"
+                                    aria-label="Detener"
                                     tabIndex={0}
                                     onClick={stopGenerating}
                                     onKeyDown={e => e.key === "Enter" || e.key === " " ? stopGenerating() : null}
@@ -655,7 +655,7 @@ const Chat = () => {
                             </Stack>
                             <QuestionInput
                                 clearOnSend
-                                placeholder="Type a new question..."
+                                placeholder="Escribe una pregunta..."
                                 disabled={isLoading}
                                 onSend={(question, id) => {
                                     appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
