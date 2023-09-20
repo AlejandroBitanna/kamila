@@ -1,6 +1,8 @@
 import { Outlet, Link } from "react-router-dom";
 import styles from "./Layout.module.css";
 import Azure from "../../assets/Azure.svg";
+import Bitanna from "../../assets/kamilalogo.jpg";
+import Kamila from "../../assets/bitannalogo.png";
 import { CopyRegular, ShareRegular } from "@fluentui/react-icons";
 import { CommandBarButton, Dialog, Stack, TextField, ICommandBarStyles, IButtonStyles, DefaultButton  } from "@fluentui/react";
 import { useContext, useEffect, useState } from "react";
@@ -36,7 +38,7 @@ const shareButtonStyles: ICommandBarStyles & IButtonStyles = {
 const Layout = () => {
     const [isSharePanelOpen, setIsSharePanelOpen] = useState<boolean>(false);
     const [copyClicked, setCopyClicked] = useState<boolean>(false);
-    const [copyText, setCopyText] = useState<string>("Copy URL");
+    const [copyText, setCopyText] = useState<string>("Copiar URL");
     const appStateContext = useContext(AppStateContext)
 
     const handleShareClick = () => {
@@ -60,7 +62,7 @@ const Layout = () => {
 
     useEffect(() => {
         if (copyClicked) {
-            setCopyText("Copied URL");
+            setCopyText("URL copiada");
         }
     }, [copyClicked]);
 
@@ -74,19 +76,24 @@ const Layout = () => {
                 >
                     <Stack horizontal verticalAlign="center">
                         <img
-                            src={Azure}
+                            src={Kamila}
+                            className={styles.headerIcon}
+                            aria-hidden="true"
+                        />
+                        <img
+                            src={Bitanna}
                             className={styles.headerIcon}
                             aria-hidden="true"
                         />
                         <Link to="/" className={styles.headerTitleContainer}>
-                            <h1 className={styles.headerTitle}>Azure AI</h1>
+                            <h1 className={styles.headerTitle}></h1>
                         </Link>
                     </Stack>
                     <Stack horizontal tokens={{ childrenGap: 4 }}>
                             {(appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured) && 
-                                <HistoryButton onClick={handleHistoryClick} text={appStateContext?.state?.isChatHistoryOpen ? "Hide chat history" : "Show chat history"}/>    
+                                <HistoryButton onClick={handleHistoryClick} text={appStateContext?.state?.isChatHistoryOpen ? "Ocultar historial de chat" : "Mostrar histórico de chat"}/>    
                             }
-                            <ShareButton onClick={handleShareClick} />
+                           
                     </Stack>
 
                 </Stack>
@@ -121,7 +128,7 @@ const Layout = () => {
                         className={styles.copyButtonContainer} 
                         role="button" 
                         tabIndex={0} 
-                        aria-label="Copy" 
+                        aria-label="Copiar" 
                         onClick={handleCopyClick}
                         onKeyDown={e => e.key === "Enter" || e.key === " " ? handleCopyClick() : null}
                     >

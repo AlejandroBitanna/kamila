@@ -13,7 +13,7 @@ interface ChatHistoryPanelProps {
 }
 
 export enum ChatHistoryPanelTabs {
-    History = "History"
+    History = "Historial"
 }
 
 const commandBarStyle: ICommandBarStyles = {
@@ -36,9 +36,9 @@ export function ChatHistoryPanel(props: ChatHistoryPanelProps) {
 
     const clearAllDialogContentProps = {
         type: DialogType.close,
-        title: !clearingError? 'Are you sure you want to clear all chat history?' : 'Error deleting all of chat history',
-        closeButtonAriaLabel: 'Close',
-        subText: !clearingError ? 'All chat history will be permanently removed.' : 'Please try again. If the problem persists, please contact the site administrator.',
+        title: !clearingError? 'Confirmar borrado de todo el historial?' : 'Ocurrió un error',
+        closeButtonAriaLabel: 'Cerrar',
+        subText: !clearingError ? 'Todo el historial será borrado.' : 'Por favor intente nuevamente.',
     };
     
     const modalProps = {
@@ -49,7 +49,7 @@ export function ChatHistoryPanel(props: ChatHistoryPanelProps) {
     }
 
     const menuItems: IContextualMenuItem[] = [
-        { key: 'clearAll', text: 'Clear all chat history', iconProps: { iconName: 'Delete' }},
+        { key: 'clearAll', text: 'Borrar todo el historial', iconProps: { iconName: 'Borrar' }},
     ];
 
     const handleHistoryClick = () => {
@@ -93,8 +93,8 @@ export function ChatHistoryPanel(props: ChatHistoryPanelProps) {
                 <Stack verticalAlign="start">
                     <Stack horizontal styles={commandBarButtonStyle}>
                         <CommandBarButton
-                            iconProps={{ iconName: 'More' }}
-                            title={"Clear all chat history"}
+                            iconProps={{ iconName: 'Más' }}
+                            title={"Borrar todo el historial"}
                             onClick={onShowContextualMenu}
                             aria-label={"clear all chat history"}
                             styles={commandBarStyle}
@@ -110,7 +110,7 @@ export function ChatHistoryPanel(props: ChatHistoryPanelProps) {
                         />
                         <CommandBarButton
                             iconProps={{ iconName: 'Cancel' }}
-                            title={"Hide"}
+                            title={"Ocultar"}
                             onClick={handleHistoryClick}
                             aria-label={"hide button"}
                             styles={commandBarStyle}
@@ -179,8 +179,8 @@ export function ChatHistoryPanel(props: ChatHistoryPanelProps) {
                 modalProps={modalProps}
             >
                 <DialogFooter>
-                {!clearingError && <PrimaryButton onClick={onClearAllChatHistory} disabled={clearing} text="Clear All" />}
-                <DefaultButton onClick={onHideClearAllDialog} disabled={clearing} text={!clearingError ? "Cancel" : "Close"} />
+                {!clearingError && <PrimaryButton onClick={onClearAllChatHistory} disabled={clearing} text="Borrar todo" />}
+                <DefaultButton onClick={onHideClearAllDialog} disabled={clearing} text={!clearingError ? "Cancelar" : "Cerrar"} />
                 </DialogFooter>
             </Dialog>
         </section>

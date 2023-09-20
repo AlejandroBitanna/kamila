@@ -433,7 +433,7 @@ def update_conversation():
                 input_message=messages[-1]
             )
         else:
-            raise Exception("No bot messages found")
+            raise Exception("No se encontraron mensajes")
         
         # Submit request to Chat Completions for response
         response = {'success': True}
@@ -461,7 +461,7 @@ def delete_conversation():
         ## Now delete the conversation 
         deleted_conversation = cosmos_conversation_client.delete_conversation(user_id, conversation_id)
 
-        return jsonify({"message": "Successfully deleted conversation and messages", "conversation_id": conversation_id}), 200
+        return jsonify({"message": "Conversaciones borradas correctamente", "conversation_id": conversation_id}), 200
     except Exception as e:
         logging.exception("Exception in /history/delete")
         return jsonify({"error": str(e)}), 500
@@ -519,12 +519,12 @@ def rename_conversation():
     ## get the conversation from cosmos
     conversation = cosmos_conversation_client.get_conversation(user_id, conversation_id)
     if not conversation:
-        return jsonify({"error": f"Conversation {conversation_id} was not found. It either does not exist or the logged in user does not have access to it."}), 404
+        return jsonify({"error": f"Conversación {conversation_id} no fue encontrada."}), 404
 
     ## update the title
     title = request.json.get("title", None)
     if not title:
-        return jsonify({"error": "title is required"}), 400
+        return jsonify({"error": "El título es requerido"}), 400
     conversation['title'] = title
     updated_conversation = cosmos_conversation_client.upsert_conversation(conversation)
 
@@ -540,7 +540,7 @@ def delete_all_conversations():
     try:
         conversations = cosmos_conversation_client.get_conversations(user_id)
         if not conversations:
-            return jsonify({"error": f"No conversations for {user_id} were found"}), 404
+            return jsonify({"error": f"No se encontraron conversaciones para el usuario {user_id}"}), 404
         
         # delete each conversation
         for conversation in conversations:
@@ -550,7 +550,7 @@ def delete_all_conversations():
             ## Now delete the conversation 
             deleted_conversation = cosmos_conversation_client.delete_conversation(user_id, conversation['id'])
 
-        return jsonify({"message": f"Successfully deleted conversation and messages for user {user_id}"}), 200
+        return jsonify({"message": f"Mensajer borrados correctamente {user_id}"}), 200
     
     except Exception as e:
         logging.exception("Exception in /history/delete_all")
@@ -590,7 +590,7 @@ def ensure_cosmos():
 
 def generate_title(conversation_messages):
     ## make sure the messages are sorted by _ts descending
-    title_prompt = 'Summarize the conversation so far into a 4-word or less title. Do not use any quotation marks or punctuation. Respond with a json object in the format {{"title": string}}. Do not include any other commentary or description.'
+    title_prompt = 'Resume la conversación hasta ahora en un título de 4 palabras o menos. No uses comillas ni puntuación. Responde con un objeto JSON en el formato {{"title": string}}. No incluyas ningún otro comentario o descripción.'
 
     messages = [{'role': msg['role'], 'content': msg['content']} for msg in conversation_messages]
     messages.append({'role': 'user', 'content': title_prompt})
