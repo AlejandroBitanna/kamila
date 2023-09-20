@@ -448,7 +448,7 @@ const Chat = () => {
         if (appStateContext && appStateContext.state.currentChat && processMessages === messageStatus.Done) {
                 if(appStateContext.state.isCosmosDBAvailable.cosmosDB){
                     if(!appStateContext?.state.currentChat?.messages){
-                        console.error("Failure fetching current chat state.")
+                        console.error("Error obteniendo estado actual.")
                         return 
                     }
                     saveToDB(appStateContext.state.currentChat.messages, appStateContext.state.currentChat.id)
