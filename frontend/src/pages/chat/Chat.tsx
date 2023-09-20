@@ -545,7 +545,7 @@ const Chat = () => {
                                     className={styles.chatIcon}
                                     aria-hidden="true"
                                 />
-                                <h1 className={styles.chatEmptyStateTitle}>Kamila</h1>
+                                <h1 className={styles.chatEmptyStateTitle}></h1>
                                 <h2 className={styles.chatEmptyStateSubtitle}>Chatbot especializado en Gestión del Conocimiento</h2>
                             </Stack>
                         ) : (

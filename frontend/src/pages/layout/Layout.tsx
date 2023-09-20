@@ -2,7 +2,7 @@ import { Outlet, Link } from "react-router-dom";
 import styles from "./Layout.module.css";
 import Azure from "../../assets/Azure.svg";
 import Bitanna from "../../assets/kamilalogo.jpg";
-import Kamila from "../../assets/bitannalogo.png";
+import Kamila from "../../assets/header.png";
 import { CopyRegular, ShareRegular } from "@fluentui/react-icons";
 import { CommandBarButton, Dialog, Stack, TextField, ICommandBarStyles, IButtonStyles, DefaultButton  } from "@fluentui/react";
 import { useContext, useEffect, useState } from "react";
@@ -79,19 +79,14 @@ const Layout = () => {
                             src={Kamila}
                             className={styles.headerIcon}
                             aria-hidden="true"
-                        />
-                        <img
-                            src={Bitanna}
-                            className={styles.headerIcon}
-                            aria-hidden="true"
-                        />
+                        />                       
                         <Link to="/" className={styles.headerTitleContainer}>
                             <h1 className={styles.headerTitle}></h1>
                         </Link>
                     </Stack>
                     <Stack horizontal tokens={{ childrenGap: 4 }}>
                             {(appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured) && 
-                                <HistoryButton onClick={handleHistoryClick} text={appStateContext?.state?.isChatHistoryOpen ? "Ocultar historial de chat" : "Mostrar histórico de chat"}/>    
+                                <HistoryButton onClick={handleHistoryClick} text={appStateContext?.state?.isChatHistoryOpen ? "Ocultar historial de chat" : "Mostrar historial de chat"}/>    
                             }
                            
                     </Stack>
