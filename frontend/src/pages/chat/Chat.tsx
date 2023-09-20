@@ -604,7 +604,7 @@ const Chat = () => {
                                     onKeyDown={e => e.key === "Enter" || e.key === " " ? stopGenerating() : null}
                                     >
                                         <SquareRegular className={styles.stopGeneratingIcon} aria-hidden="true"/>
-                                        <span className={styles.stopGeneratingText} aria-hidden="true">Stop generating</span>
+                                        <span className={styles.stopGeneratingText} aria-hidden="true">Cancelar</span>
                                 </Stack>
                             )}
                             <Stack>
@@ -623,7 +623,7 @@ const Chat = () => {
                                         }
                                     }}
                                     className={styles.newChatIcon}
-                                    iconProps={{ iconName: 'Adicionar' }}
+                                    iconProps={{ iconName: 'Add' }}
                                     onClick={newChat}
                                     disabled={disabledButton()}
                                     aria-label="start a new chat button"
