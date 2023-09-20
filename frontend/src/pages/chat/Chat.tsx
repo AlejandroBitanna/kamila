@@ -666,7 +666,7 @@ const Chat = () => {
                     </div>
                     {messages && messages.length > 0 && isCitationPanelOpen && activeCitation && (
                     <Stack.Item className={styles.citationPanel} tabIndex={0} role="tabpanel" aria-label="Citations Panel">
-                        <Stack aria-label="Citations Panel Header Container" horizontal className={styles.citationPanelHeaderContainer} horizontalAlign="space-between" verticalAlign="center">
+                        <Stack aria-label="Panel Citaciones" horizontal className={styles.citationPanelHeaderContainer} horizontalAlign="space-between" verticalAlign="center">
                             <span aria-label="Citaciones" className={styles.citationPanelHeader}>Citations</span>
                             <IconButton iconProps={{ iconName: 'Cancelar'}} aria-label="Cerrar panel de citaciones" onClick={() => setIsCitationPanelOpen(false)}/>
                         </Stack>
