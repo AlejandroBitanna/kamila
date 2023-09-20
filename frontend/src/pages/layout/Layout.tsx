@@ -15,7 +15,7 @@ const shareButtonStyles: ICommandBarStyles & IButtonStyles = {
       width: 86,
       height: 32,
       borderRadius: 4,
-      background: 'radial-gradient(109.81% 107.82% at 100.1% 90.19%, #0F6CBD 33.63%, #2D87C3 70.31%, #8DDDD8 100%)',
+      background: 'radial-gradient(109.81% 107.82% at 100.1% 90.19%, #f6a000 33.63%, #f6a000 70.31%, #deb260 100%)',
     //   position: 'absolute',
     //   right: 20,
       padding: '5px 12px',
@@ -25,7 +25,7 @@ const shareButtonStyles: ICommandBarStyles & IButtonStyles = {
       color: '#FFFFFF',
     },
     rootHovered: {
-      background: 'linear-gradient(135deg, #0F6CBD 0%, #2D87C3 51.04%, #8DDDD8 100%)',
+      background: 'linear-gradient(135deg, #deb260 0%, #deb260 51.04%, #f6a000 100%)',
     },
     label: {
       fontWeight: 600,
