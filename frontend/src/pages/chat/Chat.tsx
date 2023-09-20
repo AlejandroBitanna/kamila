@@ -616,7 +616,7 @@ const Chat = () => {
                                         },
                                         root: {
                                             color: '#FFFFFF',
-                                            background: "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #f6a000 33.63%, #f6a000 70.31%, #deb260 100%)"
+                                            background: "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #f6a000 33.62%, #f6a000 70.31%, #deb260 100%)"
                                         }, 
                                         rootDisabled: {
                                             background: "#BDBDBD"
